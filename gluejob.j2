@@ -1,0 +1,20 @@
+Type: AWS::Glue::Job
+Properties:
+  Name: {{ glue_job_script_name }}
+  Role: arn:aws:iam::AWS::{{ AccountId }}:role/{{ GlueServiceRole }}
+  ExecutionProperty:
+    MaxConcurrentRuns: {{ MaxConcurrentRuns }}
+  Command:
+    Name: glueetl
+    ScriptLocation: s3://dlh-{{ EnvironmentName }}-git/DLH/glue/scripts/{{ layer }}/{{ glue_job_script_name }}.py
+    PythonVersion: '3'
+  DefaultArguments:
+    --TempDir: s3://dlh-{{ EnvironmentName }}/temp/
+    --job-bookmark-option: job-bookmark-disable
+    --job-language: python
+    --enable-glue-datacatalog: ''
+  MaxRetries: 0
+  Timeout: 2880
+  GlueVersion: '2.0'
+  NumberOfWorkers: 2
+  WorkerType: G.1X
