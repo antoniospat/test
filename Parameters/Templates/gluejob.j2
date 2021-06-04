@@ -6,13 +6,15 @@ Properties:
     MaxConcurrentRuns: {{ MaxConcurrentRuns }}
   Command:
     Name: glueetl
-    ScriptLocation: s3://dlh-{{ EnvironmentName }}-git/DLH/glue/scripts/{{ layer }}/{{ glue_job_script_name }}.py
+    ScriptLocation: s3://{{bucket_name_prefix}}-{{ enviroment }}-git/DLH/glue/scripts/{{ layer }}/{{ glue_job_script_name }}.py
     PythonVersion: '3'
   DefaultArguments:
-    --TempDir: s3://dlh-{{ EnvironmentName }}/temp/
+    --TempDir: s3://{{bucket_name_prefix}}-{{ enviroment }}/temp/
     --job-bookmark-option: job-bookmark-disable
     --job-language: python
     --enable-glue-datacatalog: ''
+    --enviroment: {{ enviroment }}
+    --regionsufix: {{ regionsufix }}
   MaxRetries: 0
   Timeout: 2880
   GlueVersion: '2.0'

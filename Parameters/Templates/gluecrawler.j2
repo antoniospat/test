@@ -1,0 +1,10 @@
+Type: AWS::Glue::Crawler
+Properties:
+  DatabaseName: {{ bucket_name_prefix }}-{{ enviroment }}
+  Name: {{ glue_crawler_name }}
+  Role: arn:aws:iam::AWS::{{ AccountId }}:role/{{ GlueCrawlerRole }}
+  Targets:
+    S3Targets:
+      - Path: s3://{{bucket_name_prefix}}-{{ enviroment }}/outbound/sfdc/{{ glue_job_script_name }}/
+   
+

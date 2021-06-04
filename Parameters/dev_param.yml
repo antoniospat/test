@@ -1,4 +1,10 @@
+enviroment: dev
+regionsufix: eu-central-1
+bucket_name_prefix: dlh
 AccountId: account
 GlueServiceRole: role
-MaxConcurrentRuns: 3
-EnvironmentName: dev
+MaxConcurrentRuns: 
+  default: 1
+  exceptions:
+    dl_job_a: 3 
+    dl_job_b: 5
